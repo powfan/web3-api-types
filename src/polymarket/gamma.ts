@@ -147,9 +147,12 @@ export interface Market {
   volumeClob?: number
   liquidityClob?: number
   fpmmLive?: boolean
+  volume24hrAmm?: number
   volume1wkAmm?: number
   volume1moAmm?: number
   volume1yrAmm?: number
+  volumeAmm?: number
+  liquidityAmm?: number
   acceptingOrders?: boolean
   negRisk?: boolean
   negRiskMarketID?: string
