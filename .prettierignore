@@ -1,0 +1,9 @@
+node_modules
+dist
+pnpm-lock.yaml
+*.d.ts
+_drizzle
+worker-configuration.d.ts
+.DS_Store
+.mcp.json
+.wrangler

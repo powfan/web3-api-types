@@ -1,0 +1,46 @@
+{
+  "compilerOptions": {
+    // Environment setup & latest features
+    "lib": ["ESNext"],
+    "target": "ESNext",
+    "module": "Preserve",
+    "moduleDetection": "force",
+    "jsx": "react-jsx",
+    "allowJs": true,
+
+    // Bundler mode
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+
+    // Best practices
+    "strict": true,
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+
+    // Path aliases
+    "baseUrl": ".",
+    "paths": {
+      "@worker/*": ["packages/worker/src/*"],
+      "@actor/*": ["packages/actor/src/*"],
+      "@workflow/*": ["packages/workflow/src/*"],
+      "@durable/*": ["packages/durable/src/*"],
+      "@web3-api-types/*": ["packages/web3-api-types/src/*"]
+    },
+
+    // Types
+    "types": [
+      "@cloudflare/workers-types",
+      "@cloudflare/vitest-pool-workers"
+    ],
+
+    // Relaxed flags
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noPropertyAccessFromIndexSignature": false
+  },
+  "include": ["packages/**/*.ts"]
+}
