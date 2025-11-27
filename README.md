@@ -1,15 +1,27 @@
-# dex-cex
+# @dex-cex/web3-api-types
 
-To install dependencies:
+Web3 API TypeScript type definitions.
 
-```bash
-bun install
+## Structure
+
+```
+src/
+├── index.ts
+└── polymarket/
+    ├── index.ts
+    ├── gamma.ts      # Gamma API (market metadata)
+    └── clob.ts       # CLOB API (trading) - TODO
 ```
 
-To run:
+## Usage
 
-```bash
-bun run index.ts
+```typescript
+import type { Team, TeamsInput, TeamsOutput } from '@web3-api-types/polymarket/gamma'
 ```
 
-This project was created using `bun init` in bun v1.3.3. [Bun](https://bun.com) is a fast all-in-one JavaScript runtime.
+## APIs
+
+### Polymarket
+
+- **Gamma API**: https://gamma-api.polymarket.com - Market metadata, events, sports
+- **CLOB API**: https://clob.polymarket.com - Order book trading
