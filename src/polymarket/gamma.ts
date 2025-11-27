@@ -265,10 +265,14 @@ export interface Event {
   openInterest: number
   sortBy?: string
   category?: string
+  subcategory?: string
   published_at?: string
   createdAt: string
   updatedAt: string
+  updatedBy?: number
   competitive?: number
+  commentsEnabled?: boolean
+  gmpChartMode?: string
   volume24hr?: number
   volume1wk?: number
   volume1mo?: number
@@ -336,6 +340,7 @@ export interface EventsInput extends PaginationParams {
   featured?: boolean
   restricted?: boolean
   tag_id?: string | string[]
+  tag_slug?: string
   exclude_tag_id?: string | string[]
   related_tags?: boolean
   start_date_min?: string
@@ -349,6 +354,10 @@ export interface EventsInput extends PaginationParams {
   competitive_min?: number
   competitive_max?: number
   category?: string | string[]
+  cyom?: boolean
+  include_chat?: boolean
+  include_template?: boolean
+  recurrence?: string
 }
 
 export type EventsOutput = Event[]
