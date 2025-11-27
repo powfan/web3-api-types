@@ -26,13 +26,16 @@ export interface SportMetadata {
  */
 export interface Tag {
   id: string
-  label: string
-  slug: string
-  forceShow?: boolean
-  publishedAt?: string
-  createdAt?: string
-  updatedAt?: string
-  isCarousel?: boolean
+  label?: string | null
+  slug?: string | null
+  forceShow?: boolean | null
+  forceHide?: boolean | null
+  publishedAt?: string | null
+  createdBy?: number | null
+  updatedBy?: number | null
+  createdAt?: string | null
+  updatedAt?: string | null
+  isCarousel?: boolean | null
 }
 
 /**
@@ -238,6 +241,67 @@ export interface EventSummary {
 }
 
 /**
+ * Image optimization metadata
+ */
+export interface ImageOptimization {
+  imageUrlSource?: string | null
+  imageUrlOptimized?: string | null
+  sourceFileSize?: number | null
+  optimizedFileSize?: number | null
+  isCompleted?: boolean | null
+}
+
+/**
+ * Category entity for event classification
+ */
+export interface Category {
+  id: string
+  label?: string | null
+  slug?: string | null
+  parentCategory?: string | null
+}
+
+/**
+ * Collection entity for grouping events
+ */
+export interface Collection {
+  id: string
+  name?: string | null
+  slug?: string | null
+  collectionType?: string | null
+}
+
+/**
+ * Event creator information
+ */
+export interface EventCreator {
+  id: string
+  name?: string | null
+  slug?: string | null
+  profileImage?: string | null
+}
+
+/**
+ * Chat channel associated with an event
+ */
+export interface Chat {
+  channelId?: string | null
+  channelName?: string | null
+  live?: boolean | null
+  startTime?: string | null
+  endTime?: string | null
+}
+
+/**
+ * Event template
+ */
+export interface Template {
+  id: string
+  name?: string | null
+  slug?: string | null
+}
+
+/**
  * Event entity - contains a group of related markets
  * An event with 1 market produces a Single Market Prediction (SMP)
  * An event with 2+ markets produces a Group Market Prediction (GMP)
@@ -247,6 +311,7 @@ export interface Event {
   ticker: string
   slug: string
   title: string
+  subtitle?: string | null
   description: string
   resolutionSource?: string
   startDate: string
@@ -254,6 +319,10 @@ export interface Event {
   endDate: string
   image: string
   icon: string
+  featuredImage?: string | null
+  imageOptimized?: ImageOptimization | null
+  iconOptimized?: ImageOptimization | null
+  featuredImageOptimized?: ImageOptimization | null
   active: boolean
   closed: boolean
   archived: boolean
@@ -281,9 +350,28 @@ export interface Event {
   liquidityClob?: number
   enableOrderBook?: boolean
   commentCount?: number
+  tweetCount?: number
+  // Sports/Live event fields
+  eventDate?: string | null
+  startTime?: string | null
+  eventWeek?: string | null
+  live?: boolean
+  ended?: boolean
+  finishedTimestamp?: string | null
+  gameStatus?: string | null
+  elapsed?: string | null
+  period?: string | null
+  score?: string | null
+  automaticallyResolved?: boolean
+  // Related entities
   markets: Market[]
   series?: Series[]
   tags?: Tag[]
+  categories?: Category[]
+  collections?: Collection[]
+  eventCreators?: EventCreator[]
+  chats?: Chat[]
+  templates?: Template[]
   cyom?: boolean
   closedTime?: string | null
   showAllOutcomes?: boolean
@@ -381,26 +469,29 @@ export type EventBySlugOutput = Event
 // ============ Endpoints: /markets ============
 
 export interface MarketsInput extends PaginationParams {
-  id?: string | string[]
-  condition_id?: string | string[]
+  id?: number | number[]
   slug?: string | string[]
-  active?: boolean
-  closed?: boolean
-  archived?: boolean
-  new?: boolean
-  featured?: boolean
-  restricted?: boolean
-  clob_token_ids?: string
-  liquidity_min?: number
-  liquidity_max?: number
-  volume_min?: number
-  volume_max?: number
+  clob_token_ids?: string | string[]
+  condition_ids?: string | string[]
+  market_maker_address?: string | string[]
+  question_ids?: string | string[]
+  liquidity_num_min?: number
+  liquidity_num_max?: number
+  volume_num_min?: number
+  volume_num_max?: number
   start_date_min?: string
   start_date_max?: string
   end_date_min?: string
   end_date_max?: string
-  fee_min?: string
-  fee_max?: string
+  tag_id?: number
+  related_tags?: boolean
+  cyom?: boolean
+  closed?: boolean
+  uma_resolution_status?: string
+  game_id?: string
+  sports_market_types?: string | string[]
+  rewards_min_size?: number
+  include_tag?: boolean
 }
 
 export type MarketsOutput = Market[]
@@ -435,6 +526,8 @@ export interface TagsInput extends PaginationParams {
   id?: string | string[]
   slug?: string | string[]
   label?: string
+  include_template?: boolean
+  is_carousel?: boolean
 }
 
 export type TagsOutput = Tag[]
